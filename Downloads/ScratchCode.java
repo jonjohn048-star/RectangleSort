@@ -1,4 +1,16 @@
-// Objective:
+import java.util.Scanner;
+public class WeeklyStudyTracker
+{
+    // John Nguyen 1002097443 //
+    // These constants define the size of the study tracker and the weekly goal. //
+    private static final int NUM_SESSIONS = 5;
+    private static final int RECOMMENDED_WEEKLY_MINUTES = 600;
+
+    public static void main(String[] args)
+    {
+        // We'll come back to this //
+    }
+}
 Write a program that allows a student to track the amount of time
 they spend studying for a course during five study sessions.
 The user should enter basic student and course information and then
@@ -12,8 +24,6 @@ time, convert the total number of minutes into hours and remaining
 minutes, and determine a weekly study level.
 Requirements:
 ○ Constants and Variables. (5 pts)
-    • Create a constant representing the number of study sessions: 5 study sessions
-    • Create a constant representing the recommended amount of weekly study time: 600 minutes
     • The recommended weekly study-time constant must be used when determining whether the student's study level is Excellent.
     • Constant names should follow Java naming conventions.
     • Use appropriate variable types throughout the program.
