@@ -68,39 +68,54 @@ public class WeeklyStudyTracker
             }
             
             else if (choice == 2) // The loop if the user chooses 2 to view their study sessions //
+
             {
                 if (!studyTimesEntered) // Check if study times have been entered before displaying them //
+
                 {
                     System.out.println("Please enter the study times first.");
 
                     System.out.println();
                 }
+
                 else
+                
                 {
                     System.out.println("------ Study Sessions ------");
+
                     for (int i = 0; i < NUMBER_OF_SESSIONS; i++) // We use a for loop to iterate through the studyTimes array and display the study times for each session //
+
                     {
                         System.out.println("Session " + (i + 1) + ": " + studyTimes[i] + " minutes"); // We use +1 to display the session number starting from 1 instead of 0 and it goes before the colon AND we use the studyTimes function from choice 1 to display the study times //
                     }
+
                     System.out.println();
+
                 }
             }
 
             else if (choice == 3) // The loop if the user chooses 3 to view their weekly summary //
+
             {
                 if (!studyTimesEntered) // Check if study times have been entered before displaying the weekly summary //
+
                 {
                     System.out.println("Please enter the study times first.");
 
                     System.out.println();
                 }
+
                 else
+
                 {
                     int totalStudyTime = 0; // Variable to hold the total study time for the week //
+
                     for (int i = 0; i < NUMBER_OF_SESSIONS; i++) // We use a for loop to iterate through the 5 study sessions we calculated and calculate the total study time for the week //
+
                     {
                         totalStudyTime += studyTimes[i]; // We add the study time for each session to the totalStudyTime variable //
                     }
+
                     double averageStudyTime = (double) totalStudyTime / NUMBER_OF_SESSIONS; // We calculate the average study time per session by dividing the total study time by the number of sessions and we cast it to double to get a decimal value //
 
                     int hours = totalStudyTime / 60; // We calculate the number of hours by dividing the total study time by 60 //
@@ -110,21 +125,29 @@ public class WeeklyStudyTracker
                     String studyLevel; // Variable to hold the study level based on the total study time for the week //
 
                     if (totalStudyTime >= RECOMMENDED_WEEKLY_MINUTES)
+
                     {
                         studyLevel = "Excellent"; // If the total study time is greater than or equal to the recommended weekly minutes, the study level is Excellent //
                     }
+
                     else if (totalStudyTime >= 450)
+
                     {
                         studyLevel = "On Track";
                     }
+
                     else if (totalStudyTime >= 300)
+
                     {
                         studyLevel = "Making Progress";
                     }
+
                     else
+
                     {
                         studyLevel = "More Study Time Recommended";
                     }
+
                     System.out.println("------ WEEKLY STUDY SUMMARY ------");
 
                     System.out.println("Student: " + uppercaseStudentName);
@@ -138,6 +161,7 @@ public class WeeklyStudyTracker
                     System.out.println();
 
                     for (int i = 0; i < NUMBER_OF_SESSIONS; i++) // We use a for loop to iterate through the studyTimes array and display the study times for each session //
+
                     {
                         System.out.println("Session " + (i + 1) + ": " + studyTimes[i] + " minutes"); // We use +1 to display the session number starting from 1 instead of 0 and it goes before the colon AND we use the studyTimes function from choice 1 to display the study times //
                     }
@@ -155,7 +179,9 @@ public class WeeklyStudyTracker
                     System.out.println();
                 }
             }
+
             else if (choice == 4)
+                
             {
                 keepRunning = false; // Set the flag to false to exit the main loop and end the program //
 
