@@ -1,3 +1,4 @@
+import java.util.Scanner; // Import the Scanner class to read user input //
 // John Nguyen 1002097443 //
 public class RectangleSorting
 {
@@ -6,42 +7,80 @@ public class RectangleSorting
         Scanner scanningTool = new Scanner(System.in); // Create a Scanner object to read user input //
 
         boolean runningProgram = true; // Boolean flag to control the main loop //
+
+        boolean rectangleDataEntered = false; // Boolean flag to check if rectangle data has been entered //
         
         System.out.println("Welcome to the Rectangle Sorting Program!");
 
         System.out.println();
 
-        // We need a function right here that will ask the user to enter the rectangle data and store it in an array of RectangleDimensions objects. //
+        enterRectangleData(); // Call the enterRectangleData method to prompt the user to enter rectangle data //
 
         while (runningProgram)
         {
+            System.out.println("How many Rectangles are we creating?"); // Prompt the user to enter the number of rectangles they want to create //
             displayMenu(); // Call the displayMenu method to show the menu options to the user //
 
             int choice = scanningTool.nextInt(); // Read the user's menu choice //
 
             if (choice == 1) // The loop if the user chooses 1 to sort rectangles by smallest to largest //
             {
-                // We need a function right here that will sort the rectangles by area in ascending order and display the sorted list. //
+                if(!rectangleDataEntered)
+                {
+                    System.out.println("Please enter rectangle data first.");
+                }
+                else
+                {
+                    sortFromSmallestToLargest(); // We need a function right here that will sort the rectangles by area in ascending order and display the sorted list. //
+                }
             }
             else if (choice == 2) // The loop if the user chooses 2 to sort rectangles by largest to smallest //
             {
-                // We need a function right here that will sort the rectangles by area in descending order and display the sorted list. //
+                if(!rectangleDataEntered)
+                {
+                    System.out.println("Please enter rectangle data first.");
+                }
+                else
+                {
+                    sortFromLargestToSmallest(); // We need a function right here that will sort the rectangles by area in descending order and display the sorted list. //
+                }
             }
             else if (choice == 3) // The loop if the user chooses 3 to get maximum area //
             {
-                // We need a function right here that will find and display the rectangle with the maximum area. //
+                if(!rectangleDataEntered)
+                {
+                    System.out.println("Please enter rectangle data first.");
+                }
+                else
+                {
+                    getMaxArea(); // We need a function right here that will find and display the rectangle with the maximum area. //
+                }
             }
             else if (choice == 4) // The loop if the user chooses 4 to get minimum area //
             {
-                // We need a function right here that will find and display the rectangle with the minimum area. //
+                if(!rectangleDataEntered)
+                {
+                    System.out.println("Please enter rectangle data first.");
+                }
+                else
+                {
+                    getMinArea(); // We need a function right here that will find and display the rectangle with the minimum area. //
+                }
             }
             else if (choice == 5) // The loop if the user chooses 5 to get average area //
             {
-                // We need a function right here that will calculate and display the average area of all rectangles. //
+                if(!rectangleDataEntered)
+                {
+                    System.out.println("Please enter rectangle data first.");
+                }
+                else
+                {
+                    getAverageArea(); // We need a function right here that will calculate and display the average area of all rectangles. //
+                }
             }
             else if (choice == 9) // The loop if the user chooses 9 to reenter rectangle data //
             {
-                // We need a function right here that will allow the user to reenter rectangle data and store it in an array of RectangleDimensions objects. //
+                enterRectangleData(); // We need a function right here that will allow the user to reenter rectangle data and store it in the rectangles array. //
             }
             else if (choice == 0) // The loop if the user chooses 0 to exit the program //
             {
@@ -54,6 +93,8 @@ public class RectangleSorting
                 System.out.println("Invalid choice."); // Display an error message for invalid input //
             }
         }
+
+        scanningTool.close(); // Close the Scanner object to free up resources //
     }
 
     public static void displayMenu() // Method to display the menu options to the user //
@@ -104,22 +145,37 @@ public class RectangleSorting
         // Display the minimum area of the rectangles provided //
         // Choose the smallest rectangle based on area //
     }
-    // The ability to display the average area of the rectangles provided.
+    public static void getAverageArea() // Method to calculate and display the average area of the rectangles provided //
     {
-        // Display the average area of the rectangles provided //
+        double totalArea = 0.0; // Variable to hold the total area of the rectangles //
+        double averageArea; // Variable to hold the average area of the rectangles //
+        for (RectangleDimensions rectangle : rectangles) // Loop through each rectangle in the rectangles array //
+        {
+            totalArea += rectangle.getArea(); // Add the area of the current rectangle to the total area //
+        }
+        averageArea = totalArea / rectangles.quantity; // Calculate the average area of the rectangles provided //
+        System.out.println("The Average Area is " + averageArea); // Display the average area of the rectangles provided //
     }
-    // The ability to reset the program and start over with new rectangles.
+    public static void enterRectangleData() // Method to allow the user to enter rectangle data and store it in the rectangles array //
     {
-        // Reset the program and start over with new rectangles //
-    }
-    // The ability to exit the program gracefully.
-    {
-        runningProgram = false; // Set the flag to false to exit the main loop //
-
-        System.out.println("Goodbye!");
-        
-    }
-    {
-        System.out.println("Invalid Choice");
+        System.out.println("Enter the number of Rectangles you want to create: "); // Prompt the user to enter the number of rectangles they want to create //
+        if (rectangles.quantity <= 0) // Check if the number of rectangles is less than or equal to 0 //
+        {
+            System.out.println("Please enter a positive number of rectangles."); // Display an error message for invalid input //
+        }
+        else
+        {
+            rectangles = new RectangleDimensions[rectangles.quantity]; // Create a new array of RectangleDimensions objects with the specified quantity //
+            int quantity = rectangles.quantity; // Store the quantity of rectangles in a variable for later use //u
+            for (quantity = 0; quantity < rectangles.quantity; quantity++) // Loop through each rectangle in the rectangles array //
+            {
+                System.out.println("Enter the length for Rectangle " + quantity + ": "); // Prompt the user to enter the length of the current rectangle //
+                double length = toolScanner.nextDouble(); // Read the length of the current rectangle from user input //
+                System.out.println("Enter the width for Rectangle " + quantity + ": "); // Prompt the user to enter the width of the current rectangle //
+                double width = toolScanner.nextDouble(); // Read the width of the current rectangle from user input //
+                rectangles[quantity] = new RectangleDimensions(length, width); // Create a new RectangleDimensions object with the specified length and width and store it in the rectangles array at the current index //
+            }
+            System.out.println("Rectangle data saved successfully."); // Display a success message after saving the rectangle data //
+        }
     }
 }
