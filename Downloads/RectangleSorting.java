@@ -14,8 +14,6 @@ public class RectangleSorting
 
         System.out.println();
 
-        enterRectangleData(); // Call the enterRectangleData method to prompt the user to enter rectangle data //
-
         while (runningProgram)
         {
             System.out.println("How many Rectangles are we creating?"); // Prompt the user to enter the number of rectangles they want to create //
@@ -135,15 +133,31 @@ public class RectangleSorting
         // Sort the rectangles based on their area in ascending order //
         // Display the sorted list of rectangles //
     }
-    // The ability to display the maximum area of the rectangles provided and choose the largest one
+    public static void getMaxArea() // The ability to display the maximum area of the rectangles provided and choose the largest one
     {
-        // Display the maximum area of the rectangles provided //
-        // Choose the largest rectangle based on area //
+        int index; // Variable to hold the index of the rectangle with the maximum area //
+        double max = rectangles[0].getArea(); // Variable to hold the maximum area of the rectangles provided //
+        for (index = 1; index < rectangles.length; index++) // Loop through each rectangle in the rectangles array //
+        {
+            if (rectangles[index].getArea() > max) // Check if the area of the current rectangle is greater than the maximum area found so far //
+            {
+                max = rectangles[index].getArea(); // Update the maximum area if a larger area is found //
+            }
+        }
+        System.out.println("The Maximum Area is " + max); // Display the maximum area of the rectangles provided //
     }
-    // The ability to display the minimum area of the rectangles provided and choose the smallest one
+    public static void getMinArea() // The ability to display the minimum area of the rectangles provided and choose the smallest one
     {
-        // Display the minimum area of the rectangles provided //
-        // Choose the smallest rectangle based on area //
+        int index; // Variable to hold the index of the rectangle with the minimum area //
+        double min = rectangles[0].getArea(); // Variable to hold the minimum area of the rectangles provided //
+        for (index = 1; index < rectangles.length; index++) // Loop through each rectangle in the rectangles array //
+        {
+            if (rectangles[index].getArea() < min) // Check if the area of the current rectangle is less than the minimum area found so far //
+            {
+                min = rectangles[index].getArea(); // Update the minimum area if a smaller area is found //
+            }
+        }
+        System.out.println("The Minimum Area is " + min); // Display the minimum area of the rectangles provided //
     }
     public static void getAverageArea() // Method to calculate and display the average area of the rectangles provided //
     {
