@@ -122,16 +122,44 @@ public class RectangleSorting
             return length * width; // Return the area of the rectangle //
         }
     }
+    public static void sortFromSmallestToLargest(int Area[], int n) // Method to sort the rectangles by area in ascending order and display the sorted list using Insertion Sort //
+    {
+        int i;
+        int j;
+        int key;
+        // Loop through each rectangle in the rectangles array //
+        for (i = 1; i < n; i++) // Loop through each rectangle in the rectangles array starting from the second element //
+        {
+            key = Area[i]; // Store the area of the current rectangle in the key variable //
+            j = i - 1; // Set j to the index of the previous rectangle //
 
-    // The ability to keep track of how many rectangles have been created and display the total number of rectangles created.
-    {
-        // Keep track of how many rectangles have been created //
-        // Display the total number of rectangles created //
+            while (j >= 0 && Area[j] > key) // While j is greater than or equal to 0 and the area of the rectangle at index j is greater than the key //
+            {
+                Area[j + 1] = Area[j]; // Move the area of the rectangle at index j to index j + 1 //
+                j = j - 1; // Decrement j to move to the previous rectangle //
+            }
+            Area[j + 1] = key; // Insert the key at index j + 1 //
+        }
+
     }
-    // The ability to sort the rectangles based on their area in ascending order and display the sorted list of rectangles.
+    public static void sortFromLargestToSmallest(int Area[], int n) // Method to sort the rectangles by area in descending order and display the sorted list with Insertion Sort //
     {
-        // Sort the rectangles based on their area in ascending order //
-        // Display the sorted list of rectangles //
+        int i;
+        int j;
+        int key;
+        // Loop through each rectangle in the rectangles array //
+        for (i = 1; i < n; i++) // Loop through each rectangle in the rectangles array starting from the second element //
+        {
+            key = Area[i]; // Store the area of the current rectangle in the key variable //
+            j = i - 1; // Set j to the index of the previous rectangle //
+
+            while (j >= 0 && Area[j] < key) // While j is greater than or equal to 0 and the area of the rectangle at index j is less than the key //
+            {
+                Area[j + 1] = Area[j]; // Move the area of the rectangle at index j to index j + 1 //
+                j = j - 1; // Decrement j to move to the previous rectangle //
+            }
+            Area[j + 1] = key; // Insert the key at index j + 1 //
+        }
     }
     public static void getMaxArea() // The ability to display the maximum area of the rectangles provided and choose the largest one
     {
@@ -161,11 +189,12 @@ public class RectangleSorting
     }
     public static void getAverageArea() // Method to calculate and display the average area of the rectangles provided //
     {
+        int i; // Variable to hold the index of the rectangle in the rectangles array //
         double totalArea = 0.0; // Variable to hold the total area of the rectangles //
         double averageArea; // Variable to hold the average area of the rectangles //
-        for (RectangleDimensions rectangle : rectangles) // Loop through each rectangle in the rectangles array //
+        for (i = 0; i < rectangles.quantity; i++) // Loop through each rectangle in the rectangles array //
         {
-            totalArea += rectangle.getArea(); // Add the area of the current rectangle to the total area //
+            totalArea += rectangles[i].getArea(); // Add the area of the current rectangle to the total area //
         }
         averageArea = totalArea / rectangles.quantity; // Calculate the average area of the rectangles provided //
         System.out.println("The Average Area is " + averageArea); // Display the average area of the rectangles provided //
