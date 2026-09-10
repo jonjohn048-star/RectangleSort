@@ -1,14 +1,21 @@
 import java.util.Scanner; // Import the Scanner class to read user input //
 // John Nguyen 1002097443 //
-public class RectangleSorting
+public class RectangleSorting // Everything out here is so that program can call these class functions at any time and not have to be manually inputed into the main method. //
 {
+    private static boolean rectangleDataEntered = false; // Boolean flag to check if rectangle data has been entered //
+
+    private static Scanner scanningTool = new Scanner(System.in); // Create a Scanner object to read user input //
+
+    private static int RectangleQuantity; // Variable to hold the number of rectangles to be created //
+
+    private static double[] length;
+
+    private static double[] width;
+
+    private static double[] area;
     public static void main(String[] args)
     {
-        Scanner scanningTool = new Scanner(System.in); // Create a Scanner object to read user input //
-
         boolean runningProgram = true; // Boolean flag to control the main loop //
-
-        boolean rectangleDataEntered = false; // Boolean flag to check if rectangle data has been entered //
         
         System.out.println("Welcome to the Rectangle Sorting Program!");
 
@@ -16,17 +23,18 @@ public class RectangleSorting
 
         while (runningProgram)
         {
-            System.out.println("How many Rectangles are we creating?"); // Prompt the user to enter the number of rectangles they want to create //
             displayMenu(); // Call the displayMenu method to show the menu options to the user //
 
             int choice = scanningTool.nextInt(); // Read the user's menu choice //
 
             if (choice == 1) // The loop if the user chooses 1 to sort rectangles by smallest to largest //
             {
+                
                 if(!rectangleDataEntered)
                 {
-                    System.out.println("Please enter rectangle data first.");
+                    System.out.println("Cannot sort on an empty array. Please enter rectangle data first.");
                 }
+
                 else
                 {
                     sortFromSmallestToLargest(); // We need a function right here that will sort the rectangles by area in ascending order and display the sorted list. //
@@ -36,7 +44,7 @@ public class RectangleSorting
             {
                 if(!rectangleDataEntered)
                 {
-                    System.out.println("Please enter rectangle data first.");
+                    System.out.println("Cannot sort on an empty array. Please enter rectangle data first.");
                 }
                 else
                 {
@@ -47,7 +55,7 @@ public class RectangleSorting
             {
                 if(!rectangleDataEntered)
                 {
-                    System.out.println("Please enter rectangle data first.");
+                    System.out.println("Cannot find maximum area on an empty array. Please enter rectangle data first.");
                 }
                 else
                 {
@@ -58,7 +66,7 @@ public class RectangleSorting
             {
                 if(!rectangleDataEntered)
                 {
-                    System.out.println("Please enter rectangle data first.");
+                    System.out.println("Cannot find minimum area on an empty array. Please enter rectangle data first.");
                 }
                 else
                 {
@@ -69,7 +77,7 @@ public class RectangleSorting
             {
                 if(!rectangleDataEntered)
                 {
-                    System.out.println("Please enter rectangle data first.");
+                    System.out.println("Cannot calculate average area on an empty array. Please enter rectangle data first.");
                 }
                 else
                 {
@@ -107,69 +115,107 @@ public class RectangleSorting
         System.out.println("9. Reenter Rectangle Data");
         System.out.println("0. To Quit");
     }
-    
-    private static class RectangleDimensions
+
+    public static void enterRectangleData() // Method to allow the user to enter rectangle data and store it in the rectangles array //
     {
-        private double length; // Variable to hold the length of the rectangle //
-        private double width; // Variable to hold the width of the rectangle //
-        RectangleDimensions(double length, double width) // Constructor to initialize the rectangle dimensions //
+        
+        System.out.println("Enter the number of Rectangles you want to create: "); // Prompt the user to enter the number of rectangles they want to create //
+        RectangleQuantity = scanningTool.nextInt(); // Read the user's input for the number of rectangles //
+
+        if (RectangleQuantity <= 0) // Check if the number of rectangles is less than or equal to 0 //
         {
-            this.length = length; // Set the length of the rectangle //
-            this.width = width; // Set the width of the rectangle //
+            System.out.println("Please enter a positive number of rectangles."); // Display an error message for invalid input //
+            RectangleQuantity = scanningTool.nextInt(); // Read the user's input for the number of rectangles again //
         }
-        double getArea() // Method to get the area of the rectangle //
+
+        else
         {
-            return length * width; // Return the area of the rectangle //
+            
+            int quantity; // Store the quantity of rectangles in a variable for later use //
+
+            length = new double[RectangleQuantity]; // Create an array to hold the lengths of the rectangles based on the number of rectangles specified by the user //
+            width = new double[RectangleQuantity]; // Create an array to hold the widths of the rectangles based on the number of rectangles specified by the user //
+            area = new double[RectangleQuantity]; // Create an array to hold the areas of the rectangles based on the number of rectangles specified by the user //
+            
+            for (quantity = 0; quantity < RectangleQuantity; quantity++) // Loop through each rectangle in the rectangles array //
+            {
+                
+                System.out.println("Enter the length for Rectangle " + quantity); // Prompt the user to enter the length of the current rectangle //
+                
+                length[quantity] = scanningTool.nextDouble(); // Read the length of the current rectangle from user input //
+                
+                System.out.println("Enter the width for Rectangle " + quantity); // Prompt the user to enter the width of the current rectangle //
+                
+                width[quantity] = scanningTool.nextDouble(); // Read the width of the current rectangle from user input //
+                
+                area[quantity] = length[quantity] * width[quantity]; // Calculate the area of the current rectangle by multiplying length and width //
+
+            }
+
+            rectangleDataEntered = true; // Set the flag to true to indicate that rectangle data has been entered //
+
+            System.out.println("Rectangle data saved successfully."); // Display a success message after saving the rectangle data //
         }
     }
-    public static void sortFromSmallestToLargest(int Area[], int n) // Method to sort the rectangles by area in ascending order and display the sorted list using Insertion Sort //
+
+    public static void sortFromSmallestToLargest() // Method to sort the rectangles by area in ascending order and display the sorted list using Insertion Sort //
     {
         int i;
         int j;
-        int key;
+        double key;
         // Loop through each rectangle in the rectangles array //
-        for (i = 1; i < n; i++) // Loop through each rectangle in the rectangles array starting from the second element //
+        for (i = 1; i < RectangleQuantity; i++) // Loop through each rectangle in the rectangles array starting from the second element //
         {
-            key = Area[i]; // Store the area of the current rectangle in the key variable //
+            key = area[i]; // Store the area of the current rectangle in the key variable //
             j = i - 1; // Set j to the index of the previous rectangle //
 
-            while (j >= 0 && Area[j] > key) // While j is greater than or equal to 0 and the area of the rectangle at index j is greater than the key //
+            while (j >= 0 && area[j] > key) // While j is greater than or equal to 0 and the area of the rectangle at index j is greater than the key //
             {
-                Area[j + 1] = Area[j]; // Move the area of the rectangle at index j to index j + 1 //
+                area[j + 1] = area[j]; // Move the area of the rectangle at index j to index j + 1 //
                 j = j - 1; // Decrement j to move to the previous rectangle //
             }
-            Area[j + 1] = key; // Insert the key at index j + 1 //
+            area[j + 1] = key; // Insert the key at index j + 1 //
+        }
+        System.out.println("Areas Smallest to Largest"); // Display a message indicating that the areas have been sorted in ascending order //
+        for (i = 0; i < RectangleQuantity; i++) // Loop through each rectangle in the rectangles array //
+        {
+            System.out.println(area[i]); // Display the area of the current rectangle //
         }
 
     }
-    public static void sortFromLargestToSmallest(int Area[], int n) // Method to sort the rectangles by area in descending order and display the sorted list with Insertion Sort //
+    public static void sortFromLargestToSmallest() // Method to sort the rectangles by area in descending order and display the sorted list with Insertion Sort //
     {
         int i;
         int j;
-        int key;
+        double key;
         // Loop through each rectangle in the rectangles array //
-        for (i = 1; i < n; i++) // Loop through each rectangle in the rectangles array starting from the second element //
+        for (i = 1; i < RectangleQuantity; i++) // Loop through each rectangle in the rectangles array starting from the second element //
         {
-            key = Area[i]; // Store the area of the current rectangle in the key variable //
+            key = area[i]; // Store the current rectangle in the key variable //
             j = i - 1; // Set j to the index of the previous rectangle //
 
-            while (j >= 0 && Area[j] < key) // While j is greater than or equal to 0 and the area of the rectangle at index j is less than the key //
+            while (j >= 0 && area[j] < key) // While j is greater than or equal to 0 and the area of the rectangle at index j is less than the key //
             {
-                Area[j + 1] = Area[j]; // Move the area of the rectangle at index j to index j + 1 //
+                area[j + 1] = area[j]; // Move the area of the rectangle at index j to index j + 1 //
                 j = j - 1; // Decrement j to move to the previous rectangle //
             }
-            Area[j + 1] = key; // Insert the key at index j + 1 //
+            area[j + 1] = key; // Insert the key at index j + 1 //
+        }
+        System.out.println("Areas Largest to Smallest"); // Display a message indicating that the areas have been sorted in descending order //
+        for (i = 0; i < RectangleQuantity; i++) // Loop through each rectangle in the rectangles array //
+        {
+            System.out.println(area[i]); // Display the area of the current rectangle //
         }
     }
     public static void getMaxArea() // The ability to display the maximum area of the rectangles provided and choose the largest one
     {
         int index; // Variable to hold the index of the rectangle with the maximum area //
-        double max = rectangles[0].getArea(); // Variable to hold the maximum area of the rectangles provided //
-        for (index = 1; index < rectangles.length; index++) // Loop through each rectangle in the rectangles array //
+        double max = area[0]; // Variable to hold the maximum area of the rectangles provided //
+        for (index = 1; index < RectangleQuantity; index++) // Loop through each rectangle in the rectangles array //
         {
-            if (rectangles[index].getArea() > max) // Check if the area of the current rectangle is greater than the maximum area found so far //
+            if (area[index] > max) // Check if the area of the current rectangle is greater than the maximum area found so far //
             {
-                max = rectangles[index].getArea(); // Update the maximum area if a larger area is found //
+                max = area[index]; // Update the maximum area if a larger area is found //
             }
         }
         System.out.println("The Maximum Area is " + max); // Display the maximum area of the rectangles provided //
@@ -177,48 +223,26 @@ public class RectangleSorting
     public static void getMinArea() // The ability to display the minimum area of the rectangles provided and choose the smallest one
     {
         int index; // Variable to hold the index of the rectangle with the minimum area //
-        double min = rectangles[0].getArea(); // Variable to hold the minimum area of the rectangles provided //
-        for (index = 1; index < rectangles.length; index++) // Loop through each rectangle in the rectangles array //
+        double min = area[0]; // Variable to hold the minimum area of the rectangles provided //
+        for (index = 1; index < RectangleQuantity; index++) // Loop through each rectangle in the rectangles array //
         {
-            if (rectangles[index].getArea() < min) // Check if the area of the current rectangle is less than the minimum area found so far //
+            if (area[index] < min) // Check if the area of the current rectangle is less than the minimum area found so far //
             {
-                min = rectangles[index].getArea(); // Update the minimum area if a smaller area is found //
+                min = area[index]; // Update the minimum area if a smaller area is found //
             }
         }
         System.out.println("The Minimum Area is " + min); // Display the minimum area of the rectangles provided //
     }
     public static void getAverageArea() // Method to calculate and display the average area of the rectangles provided //
     {
-        int i; // Variable to hold the index of the rectangle in the rectangles array //
+        int index; // Variable to hold the index of the rectangle in the rectangles array //
         double totalArea = 0.0; // Variable to hold the total area of the rectangles //
         double averageArea; // Variable to hold the average area of the rectangles //
-        for (i = 0; i < rectangles.quantity; i++) // Loop through each rectangle in the rectangles array //
+        for (index = 0; index < RectangleQuantity; index++) // Loop through each rectangle in the rectangles array //
         {
-            totalArea += rectangles[i].getArea(); // Add the area of the current rectangle to the total area //
+            totalArea += area[index]; // Add the area of the current rectangle to the total area //
         }
-        averageArea = totalArea / rectangles.quantity; // Calculate the average area of the rectangles provided //
+        averageArea = totalArea / RectangleQuantity; // Calculate the average area of the rectangles provided //
         System.out.println("The Average Area is " + averageArea); // Display the average area of the rectangles provided //
-    }
-    public static void enterRectangleData() // Method to allow the user to enter rectangle data and store it in the rectangles array //
-    {
-        System.out.println("Enter the number of Rectangles you want to create: "); // Prompt the user to enter the number of rectangles they want to create //
-        if (rectangles.quantity <= 0) // Check if the number of rectangles is less than or equal to 0 //
-        {
-            System.out.println("Please enter a positive number of rectangles."); // Display an error message for invalid input //
-        }
-        else
-        {
-            rectangles = new RectangleDimensions[rectangles.quantity]; // Create a new array of RectangleDimensions objects with the specified quantity //
-            int quantity = rectangles.quantity; // Store the quantity of rectangles in a variable for later use //u
-            for (quantity = 0; quantity < rectangles.quantity; quantity++) // Loop through each rectangle in the rectangles array //
-            {
-                System.out.println("Enter the length for Rectangle " + quantity + ": "); // Prompt the user to enter the length of the current rectangle //
-                double length = toolScanner.nextDouble(); // Read the length of the current rectangle from user input //
-                System.out.println("Enter the width for Rectangle " + quantity + ": "); // Prompt the user to enter the width of the current rectangle //
-                double width = toolScanner.nextDouble(); // Read the width of the current rectangle from user input //
-                rectangles[quantity] = new RectangleDimensions(length, width); // Create a new RectangleDimensions object with the specified length and width and store it in the rectangles array at the current index //
-            }
-            System.out.println("Rectangle data saved successfully."); // Display a success message after saving the rectangle data //
-        }
     }
 }
